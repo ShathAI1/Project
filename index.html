@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Price Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.7); /* Fallback color */
+            background-image: url('{{ url_for('static', filename='Electricity.png') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Roboto', sans-serif;
+            color: white; /* Change text color for better visibility */
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh; /* Full viewport height */
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent container */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px; /* Limit width */
+            margin: auto; /* Center */
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"],
+        input[type="submit"] {
+            width: 100%; /* Full width */
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #28a745; /* Green button */
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Electricity Price Prediction</h1>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="Purchases">Purchases:</label>
+                <input type="number" id="Purchases" name="Purchases" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="bTotal">bTotal:</label>
+                <input type="number" id="bTotal" name="bTotal" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="bSolar">bSolar:</label>
+                <input type="number" id="bSolar" name="bSolar" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="bNonSolar">bNonSolar:</label>
+                <input type="number" id="bNonSolar" name="bNonSolar" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="bHydro">bHydro:</label>
+                <input type="number" id="bHydro" name="bHydro" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="mcvTotal">mcvTotal:</label>
+                <input type="number" id="mcvTotal" name="mcvTotal" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="mcvSolar">mcvSolar:</label>
+                <input type="number" id="mcvSolar" name="mcvSolar" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="mcvNonsolar">mcvNonsolar:</label>
+                <input type="number" id="mcvNonsolar" name="mcvNonsolar" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="mcvHydro">mcvHydro:</label>
+                <input type="number" id="mcvHydro" name="mcvHydro" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="fsvTotal">fsvTotal:</label>
+                <input type="number" id="fsvTotal" name="fsvTotal" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="fsvSolar">fsvSolar:</label>
+                <input type="number" id="fsvSolar" name="fsvSolar" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="fsvNonSolar">fsvNonSolar:</label>
+                <input type="number" id="fsvNonSolar" name="fsvNonSolar" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="fsvHydro">fsvHydro:</label>
+                <input type="number" id="fsvHydro" name="fsvHydro" step="0.01" required>
+            </div>
+            <input type="submit" value="Predict Price">
+        </form>
+
+        {% if prediction is not none %}
+            <div class="result">
+                <h2>Predicted Electricity Price: ${{ prediction|round(2) }}</h2>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
